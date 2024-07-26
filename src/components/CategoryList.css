@@ -1,0 +1,9 @@
+.category-item {
+    display:flex;
+    justify-content: space-between;
+}
+
+.category-item.selected {
+    background-color: #0f548c;
+    color: #fff;
+}
