@@ -1,73 +1,85 @@
-import { useContext, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import "./App.css";
 import TodoItem from "./components/TodoItem";
 import Sidebar from "./components/Sidebar";
 import FilterPanel from "./components/FilterPanel";
-import { AppContext } from "./context/AppProvider";
+import { useAppContext } from "./context/AppProvider";
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      name: "Học HTML - CSS",
-      isImportant: false,
-      isCompleted: true,
-      isDeleted: false,
-      category: "personal",
-    },
-    {
-      id: 2,
-      name: "Học Javascript",
-      isImportant: true,
-      isCompleted: false,
-      isDeleted: false,
-      category: "personal",
-    },
-    {
-      id: 3,
-      name: "Học ReactJS",
-      isImportant: false,
-      isCompleted: false,
-      isDeleted: false,
-      category: "travel",
-    },
-  ]);
+  // const [todoList, setTodoList] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Học HTML - CSS",
+  //     isImportant: false,
+  //     isCompleted: true,
+  //     isDeleted: false,
+  //     category: "personal",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Học Javascript",
+  //     isImportant: true,
+  //     isCompleted: false,
+  //     isDeleted: false,
+  //     category: "personal",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Học ReactJS",
+  //     isImportant: false,
+  //     isCompleted: false,
+  //     isDeleted: false,
+  //     category: "travel",
+  //   },
+  // ]);
 
-  const [selectedFilterId, setSelectedFilterId] = useState("all");
-  const [activeTodoItemId, setActiveTodoItemId] = useState();
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const {selectedCategoryId} = useContext(AppContext);
+  // const [selectedFilterId, setSelectedFilterId] = useState("all");
+  // const [searchText, setSearchText] = useState("");
+  // const [activeTodoItemId, setActiveTodoItemId] = useState();
+  // const [showSidebar, setShowSidebar] = useState(false);
+  const {
+    selectedCategoryId,
+    todoList,
+    setTodoList,
+    selectedFilterId,
+    searchText,
+    activeTodoItemId,
+    showSidebar,
+    setShowSidebar,
+    handleCompletedCheckboxChange,
+    handleTodoItemClick,
+    handleTodoItemChange,
+  } = useAppContext();
 
   const activeTodoItem = todoList.find((todo) => todo.id === activeTodoItemId);
 
-  const handleCompletedCheckboxChange = (todoId) => {
-    const newTodoList = todoList.map((todo) => {
-      if (todo.id === todoId) {
-        return { ...todo, isCompleted: !todo.isCompleted };
-      }
-      return todo;
-    });
-    setTodoList(newTodoList);
-  };
+  // const handleCompletedCheckboxChange = (todoId) => {
+  //   const newTodoList = todoList.map((todo) => {
+  //     if (todo.id === todoId) {
+  //       return { ...todo, isCompleted: !todo.isCompleted };
+  //     }
+  //     return todo;
+  //   });
+  //   setTodoList(newTodoList);
+  // };
 
   const inputRef = useRef();
   console.log({ todoList });
 
-  const handleTodoItemClick = (todoId) => {
-    setShowSidebar(true);
-    setActiveTodoItemId(todoId);
-  };
+  // const handleTodoItemClick = (todoId) => {
+  //   setShowSidebar(true);
+  //   setActiveTodoItemId(todoId);
+  // };
 
-  const handleTodoItemChange = (newTodo) => {
-    const newTodoList = todoList.map((todo) => {
-      if (todo.id === newTodo.id) {
-        return newTodo;
-      }
-      return todo;
-    });
-    setTodoList(newTodoList);
-  };
+  // const handleTodoItemChange = (newTodo) => {
+  //   const newTodoList = todoList.map((todo) => {
+  //     if (todo.id === newTodo.id) {
+  //       return newTodo;
+  //     }
+  //     return todo;
+  //   });
+  //   setTodoList(newTodoList);
+  // };
 
   const filteredTodos = useMemo(() => {
     return todoList.filter((todo) => {
@@ -97,11 +109,11 @@ function App() {
   return (
     <div className="container">
       <FilterPanel
-        selectedFilterId={selectedFilterId}
-        setSelectedFilterId={setSelectedFilterId}
-        searchText={searchText}
-        setSearchText={setSearchText}
-        todoList={todoList}
+      // selectedFilterId={selectedFilterId}
+      // setSelectedFilterId={setSelectedFilterId}
+      // searchText={searchText}
+      // setSearchText={setSearchText}
+      // todoList={todoList}
       />
       <div className="main-content">
         <input
@@ -159,3 +171,5 @@ function App() {
 export default App;
 
 // Format Code: Alt + Shift + F
+
+// Nguyên lý truyền Props: App -> FilterPanel -> CategoryList
